@@ -42,6 +42,20 @@ CREATE TABLE wc_matches (
 	FOREIGN KEY ("Year") REFERENCES world_cups("Year")
 );
 
+CREATE TABLE unique_players (
+	index INT,
+	"Player_Name" VARCHAR(255),
+	"Goals" INT,
+	"Own_Goals" INT,
+	"Yellow_Card" INT,
+	"Red_Card" INT,
+	"Second_Yellow_Card" INT,
+	"Penalty" INT,
+	"Missed_Penalty" INT,
+	data_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	PRIMARY KEY ("Player_Name")
+);
+
 CREATE TABLE wc_players (
 	index INT,
 	"Player_MatchID" VARCHAR(255),
@@ -57,19 +71,6 @@ CREATE TABLE wc_players (
 	"Missed_Penalty" INT,
 	data_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	PRIMARY KEY ("Player_MatchID"),
-	FOREIGN KEY ("MatchID") REFERENCES wc_matches("MatchID")
-);
-
-CREATE TABLE unique_players (
-	index INT,
-	"Player_Name" VARCHAR(255),
-	"Goals" INT,
-	"Own_Goals" INT,
-	"Yellow_Card" INT,
-	"Red_Card" INT,
-	"Second_Yellow_Card" INT,
-	"Penalty" INT,
-	"Missed_Penalty" INT,
-	data_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	PRIMARY KEY ("Player_Name")
+	FOREIGN KEY ("MatchID") REFERENCES wc_matches("MatchID"),
+	FOREIGN KEY ("Player_Name") REFERENCES unique_players("Player_Name")
 );
